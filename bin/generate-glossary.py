@@ -58,15 +58,18 @@ if __name__ == '__main__':
     options, args = parser.parse_args()
     #
     old_glossary = None
-    if os.path.exists(options.glossary):
+    if options.glossary and os.path.exists(options.glossary):
         fh = open(options.glossary, 'r')
         old_glossary = json.load(fh)
         fh.close()
     #
-    new_glossary = crawl(options.objects)
+    new_glossary = options.objects and crawl(options.objects)
     if old_glossary:
         new_glossary = dict(new_glossary.items() + old_glossary.items())
     #
-    fh = open(options.glossary, 'w')
-    json.dump(new_glossary, fh, indent=2)
-    fh.close()
+    if new_glossary:
+        fh = open(options.glossary, 'w')
+        json.dump(new_glossary, fh, indent=2)
+        fh.close()
+    else:
+        print 'Nothing to write'
