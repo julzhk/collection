@@ -9,14 +9,10 @@ import utils
 logging.basicConfig(level=logging.INFO)
 
 if __name__ == '__main__':
-
     whoami = os.path.abspath(sys.argv[0])
-
     bindir = os.path.dirname(whoami)
     rootdir = os.path.dirname(bindir)
-
     datadir = os.path.join(rootdir, 'exhibitions')
     metadir = os.path.join(rootdir, 'meta')
-
     outfile = os.path.join(metadir, 'exhibitions.csv')
     utils.jsondir2csv(datadir, outfile)
